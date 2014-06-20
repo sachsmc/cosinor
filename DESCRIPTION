@@ -1,0 +1,21 @@
+Package: cosinor
+Type: Package
+Title: Tools for estimating and predicting the cosinor model
+Version: 0.1
+Author: Michael Sachs <sachsmc@gmail.com>
+Maintainer: Michael Sachs <sachsmc@gmail.com>
+Description: plyr is a set of tools that solves a common
+    set of problems: you need to break a big problem down
+    into manageable pieces, operate on each pieces and then
+    put all the pieces back together.  For example, you
+    might want to fit a model to each spatial location or
+    time point in your study, summarise data by panels or
+    collapse high-dimensional arrays to simpler summary
+    statistics. The development of plyr has been generously
+    supported by BD (Becton Dickinson).
+URL: http://github.com/sachsmc/cosinor
+Depends:
+    R (>= 2.11.0)
+License: MIT + file LICENSE
+LazyData: true
+Roxygen: list(wrap = FALSE)
