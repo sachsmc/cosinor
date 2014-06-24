@@ -22,7 +22,7 @@
 
 
 cosinor.lm <- function(formula, period = 12,
-                       data, na.action = na.omit()){
+                       data, na.action = na.omit){
 
  # build time tranformations
 
@@ -44,6 +44,34 @@ cosinor.lm <- function(formula, period = 12,
   fit <- lm(newformula, data, na.action = na.action)
 
   structure(list(fit = fit, Call = match.call(), Terms = Terms, period = period), class = "cosinor.lm")
+
+}
+
+#' Fit cosinor model
+#'
+#' Given an outcome and time variable, fit the cosinor model with optional covariate effects.
+#'
+#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude and acrophase with \code{amp.acro()}. See \link{details}
+#' @param period Length of time for a complete period of the sine curve.
+#' @param data Data frame where variable can be found
+#' @param na.action What to do with missing data
+#'
+#' @details This defines special functions that are used in the formula to indicate the time variable
+#' and which covariates effect the amplitude. To indicate the time variable wrap the name of it in the function
+#' \code{time()}. To indicate a variable which affects the acrophase/amplitude, wrap the name in
+#' \code{amp.acro()}. This will then do all the tranformations for you. See examples for usage.
+#'
+#' @examples
+#'
+#' cosinor.lm(Y ~ time(time) + X + amp.acro(X), vitamind)
+#'
+#' @export
+#'
+
+
+cosinor.lm.default <- function(formula, ...){
+
+  UseMethod("cosinor.lm")
 
 }
 
