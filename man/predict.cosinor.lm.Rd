@@ -3,10 +3,12 @@
 \alias{predict.cosinor.lm}
 \title{Predict from a cosinor model}
 \usage{
-\method{predict}{cosinor.lm}(object, ...)
+\method{predict}{cosinor.lm}(object, newdata, ...)
 }
 \arguments{
 \item{object}{An object of class \code{cosinor.lm}}
+
+\item{newdata}{Optional new data}
 
 \item{...}{other arguments}
 }
@@ -16,6 +18,6 @@ prediction is the mean value, optionally can predict at a given month
 }
 \examples{
 fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
-predict(fit, type = "mean")
+predict(fit)
 }
 

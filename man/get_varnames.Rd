@@ -5,6 +5,9 @@
 \usage{
 get_varnames(Terms)
 }
+\arguments{
+\item{Terms}{a terms object}
+}
 \description{
 Extract variable names from terms object, handling specials
 }
