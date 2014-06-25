@@ -2,7 +2,8 @@
 #'
 #' Given an outcome and time variable, fit the cosinor model with optional covariate effects.
 #'
-#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude and acrophase with \code{amp.acro()}. See \link{details}
+#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude
+#' and acrophase with \code{amp.acro()}. See details for more information.
 #' @param period Length of time for a complete period of the sine curve.
 #' @param data Data frame where variable can be found
 #' @param na.action What to do with missing data
@@ -14,7 +15,7 @@
 #'
 #' @examples
 #'
-#' cosinor.lm(Y ~ time(time) + X + amp.acro(X), vitamind)
+#' cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 #'
 #' @export
 #'
@@ -43,7 +44,47 @@ cosinor.lm <- function(formula, period = 12,
 
   fit <- lm(newformula, data, na.action = na.action)
 
-  structure(list(fit = fit, Call = match.call(), Terms = Terms, period = period), class = "cosinor.lm")
+  mf <- fit
+
+  r.coef <- c(FALSE, as.logical(attr(mf$terms, "factors")["rrr",]))
+  s.coef <- c(FALSE, as.logical(attr(mf$terms, "factors")["sss",]))
+  mu.coef <- c(TRUE, ! (as.logical(attr(mf$terms, "factors")["sss",]) |
+                          as.logical(attr(mf$terms, "factors")["rrr",])))
+
+  beta.s <- mf$coefficients[s.coef]
+  beta.r <- mf$coefficients[r.coef]
+
+  amp <- sqrt(beta.r^2 + beta.s^2)
+  names(amp) <- gsub("rrr", "amp", names(amp))
+
+  acr <- atan(beta.s / beta.r)
+  names(acr) <-  gsub("sss", "acr", names(acr))
+
+  coef <- c(mf$coefficients[mu.coef], amp, acr)
+
+  structure(list(fit = fit, Call = match.call(), Terms = Terms, coefficients = coef, period = period), class = "cosinor.lm")
+
+}
+
+#' Print cosinor model
+#'
+#' Given an outcome and time variable, fit the cosinor model with optional covariate effects.
+#'
+#' @param x cosinor.lm object
+#' @param ... passed to summary
+#'
+#'
+#' @export
+#'
+
+
+print.cosinor.lm <- function(x, ...){
+
+
+  cat("Call: \n")
+  print(x$Call)
+  cat("\n Coefficients: \n")
+  print(x$coefficients)
 
 }
 
@@ -51,10 +92,9 @@ cosinor.lm <- function(formula, period = 12,
 #'
 #' Given an outcome and time variable, fit the cosinor model with optional covariate effects.
 #'
-#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude and acrophase with \code{amp.acro()}. See \link{details}
-#' @param period Length of time for a complete period of the sine curve.
-#' @param data Data frame where variable can be found
-#' @param na.action What to do with missing data
+#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the
+#' amplitude and acrophase with \code{amp.acro()}. See details.
+#' @param ... other arguments
 #'
 #' @details This defines special functions that are used in the formula to indicate the time variable
 #' and which covariates effect the amplitude. To indicate the time variable wrap the name of it in the function
@@ -63,7 +103,7 @@ cosinor.lm <- function(formula, period = 12,
 #'
 #' @examples
 #'
-#' cosinor.lm(Y ~ time(time) + X + amp.acro(X), vitamind)
+#' cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 #'
 #' @export
 #'
@@ -76,6 +116,8 @@ cosinor.lm.default <- function(formula, ...){
 }
 
 #' Extract variable names from terms object, handling specials
+#'
+#' @param Terms a terms object
 #'
 #' @keywords Internal
 #'
@@ -95,3 +137,5 @@ get_varnames <- function(Terms){
   tname
 
 }
+
+

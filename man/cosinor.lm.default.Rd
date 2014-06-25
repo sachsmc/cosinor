@@ -6,13 +6,10 @@
 cosinor.lm.default(formula, ...)
 }
 \arguments{
-\item{formula}{Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude and acrophase with \code{amp.acro()}. See \link{details}}
+\item{formula}{Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the
+amplitude and acrophase with \code{amp.acro()}. See details.}
 
-\item{period}{Length of time for a complete period of the sine curve.}
-
-\item{data}{Data frame where variable can be found}
-
-\item{na.action}{What to do with missing data}
+\item{...}{other arguments}
 }
 \description{
 Given an outcome and time variable, fit the cosinor model with optional covariate effects.
@@ -24,6 +21,6 @@ and which covariates effect the amplitude. To indicate the time variable wrap th
 \code{amp.acro()}. This will then do all the tranformations for you. See examples for usage.
 }
 \examples{
-cosinor.lm(Y ~ time(time) + X + amp.acro(X), vitamind)
+cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 }
 

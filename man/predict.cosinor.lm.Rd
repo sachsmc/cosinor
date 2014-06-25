@@ -3,14 +3,12 @@
 \alias{predict.cosinor.lm}
 \title{Predict from a cosinor model}
 \usage{
-\method{predict}{cosinor.lm}(cosinor.lm, newdata = NULL, type = "mean")
+\method{predict}{cosinor.lm}(object, ...)
 }
 \arguments{
-\item{cosinor.lm}{An object of class \code{cosinor.lm}}
+\item{object}{An object of class \code{cosinor.lm}}
 
-\item{newdata}{Optional data frame which contains outcome and time values for forming predictions}
-
-\item{type}{Character string specifying type of prediction. Currently the only option is \code{"mean"}.}
+\item{...}{other arguments}
 }
 \description{
 Given a time variable and optional covariates, generate predicted values from a cosinor fit. Default
