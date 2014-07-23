@@ -11,8 +11,12 @@
 \item{...}{}
 }
 \description{
-Given a time variable and optional covariates, generate inference a cosinor fit. Gives estimates,
-confidence intervals, and tests for the mean, amplitude, and acrophase parameters.
+Given a time variable and optional covariates, generate inference a cosinor
+fit. Gives estimates, confidence intervals, and tests for the raw parameters,
+and for the mean, amplitude, and acrophase parameters. If the model includes
+covariates, the function returns the estimates of the mean, amplitude, and
+acrophase for the group with covariates equal to 1 and equal to 0. This may
+not be the desired result for continuous covariates.
 }
 \examples{
 fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)

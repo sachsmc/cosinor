@@ -13,8 +13,9 @@
 \item{...}{other arguments}
 }
 \description{
-Given a time variable and optional covariates, generate predicted values from a cosinor fit. Default
-prediction is the mean value, optionally can predict at a given month
+Given a time variable and optional covariates, generate predicted values from
+a cosinor fit. Default prediction is the mean value, optionally can predict
+at a given month
 }
 \examples{
 fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)

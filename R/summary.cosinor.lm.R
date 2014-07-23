@@ -1,7 +1,11 @@
 #' Summarize a cosinor model
 #'
-#' Given a time variable and optional covariates, generate inference a cosinor fit. Gives estimates,
-#' confidence intervals, and tests for the mean, amplitude, and acrophase parameters.
+#' Given a time variable and optional covariates, generate inference a cosinor
+#' fit. Gives estimates, confidence intervals, and tests for the raw parameters,
+#' and for the mean, amplitude, and acrophase parameters. If the model includes
+#' covariates, the function returns the estimates of the mean, amplitude, and
+#' acrophase for the group with covariates equal to 1 and equal to 0. This may
+#' not be the desired result for continuous covariates.
 #'
 #'
 #' @param object An object of class \code{cosinor.lm}
@@ -28,20 +32,23 @@ summary.cosinor.lm <- function(object, ...) {
   beta.s <- mf$coefficients[s.coef]
   beta.r <- mf$coefficients[r.coef]
 
-  amp <- sqrt(beta.r^2 + beta.s^2)
-  names(amp) <- gsub("rrr", "amp", names(amp))
+  groups.r <- c(beta.r["rrr"], beta.r["rrr"] + beta.r[which(names(beta.r) != "rrr")])
+  groups.s <- c(beta.s["sss"], beta.s["sss"] + beta.s[which(names(beta.s) != "sss")])
 
-  acr <- atan(beta.s / beta.r)
-  names(acr) <-  gsub("sss", "acr", names(acr))
+  amp <- sqrt(groups.r^2 + groups.s^2)
+  names(amp) <- gsub("rrr", "amp", names(beta.r))
+
+  acr <- atan(groups.s / groups.r)
+  names(acr) <-  gsub("sss", "acr", names(beta.s))
 
   ## delta method to get variance
 
   vmat <- vcov(mf)[c(which(r.coef), which(s.coef)), c(which(r.coef), which(s.coef))]
-  a_r <- (beta.r^2 + beta.s^2)^(-0.5) * beta.r
-  a_s <- (beta.r^2 + beta.s^2)^(-0.5) * beta.s
+  a_r <- (groups.r^2 + groups.s^2)^(-0.5) * 2 * groups.r
+  a_s <- (groups.r^2 + groups.s^2)^(-0.5) * 2 * groups.s
 
-  b_r <- (1 / (1 + (beta.s^2 / beta.r^2))) * (-beta.s / beta.r^2)
-  b_s <- (1 / (1 + (beta.s^2 / beta.r^2))) * (1 / beta.r)
+  b_r <- (1 / (1 + (groups.s^2 / groups.r^2))) * (-groups.s / groups.r^2)
+  b_s <- (1 / (1 + (groups.s^2 / groups.r^2))) * (1 / groups.r)
 
   jac <- rbind(cbind(diag(a_r), diag(a_s)),
                cbind(diag(b_r), diag(b_s)))
@@ -55,9 +62,23 @@ summary.cosinor.lm <- function(object, ...) {
   se <- c(sqrt(diag(vcov(mf)))[mu.coef], se.trans)
 
   zt <- qnorm((1 - .95)/2, lower.tail = F)
+  raw.se <- sqrt(diag(vcov(mf)))
 
-  smat <- cbind(estimate = coef, standard.error = se, lower.CI = coef - zt * se, upper.ci = coef + zt * se, p.value = 2 * pnorm(-abs(coef/se)))
+  rawmat <- cbind(estimate = mf$coefficients, standard.error = raw.se,
+                  lower.CI = mf$coefficients - zt * raw.se, upper.CI = mf$coefficients + zt * raw.se,
+                  p.value = 2 * pnorm(-abs(mf$coefficients/raw.se)))
+
+  cat("Raw model coefficients:\n")
+  print(round(rawmat, 4))
+  cat("***********************\n")
+  smat <- cbind(estimate = coef, standard.error = se, lower.CI = coef - zt * se, upper.CI = coef + zt * se, p.value = 2 * pnorm(-abs(coef/se)))
+
+  rownames(smat) <- update_covnames(rownames(smat))
+  cat("Transformed coefficients:\n")
   print(round(smat, 4))
-  invisible(as.data.frame(smat))
+
+
+  invisible(list(tranformed.table = as.data.frame(smat), raw.table = as.data.frame(rawmat), transformed.covariance = cov.trans))
 
 }
+

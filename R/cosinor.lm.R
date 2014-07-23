@@ -1,17 +1,21 @@
 #' Fit cosinor model
 #'
-#' Given an outcome and time variable, fit the cosinor model with optional covariate effects.
+#' Given an outcome and time variable, fit the cosinor model with optional
+#' covariate effects.
 #'
-#' @param formula Forumla specifying the model. Indicate the time variable with \code{time()} and covariate effects on the amplitude
-#' and acrophase with \code{amp.acro()}. See details for more information.
+#' @param formula Forumla specifying the model. Indicate the time variable with
+#'   \code{time()} and covariate effects on the amplitude and acrophase with
+#'   \code{amp.acro()}. See details for more information.
 #' @param period Length of time for a complete period of the sine curve.
 #' @param data Data frame where variable can be found
 #' @param na.action What to do with missing data
 #'
-#' @details This defines special functions that are used in the formula to indicate the time variable
-#' and which covariates effect the amplitude. To indicate the time variable wrap the name of it in the function
-#' \code{time()}. To indicate a variable which affects the acrophase/amplitude, wrap the name in
-#' \code{amp.acro()}. This will then do all the tranformations for you. See examples for usage.
+#' @details This defines special functions that are used in the formula to
+#'   indicate the time variable and which covariates effect the amplitude. To
+#'   indicate the time variable wrap the name of it in the function
+#'   \code{time()}. To indicate a variable which affects the
+#'   acrophase/amplitude, wrap the name in \code{amp.acro()}. This will then do
+#'   all the tranformations for you. See examples for usage.
 #'
 #' @examples
 #'
@@ -54,12 +58,14 @@ cosinor.lm <- function(formula, period = 12,
   beta.s <- mf$coefficients[s.coef]
   beta.r <- mf$coefficients[r.coef]
 
-  amp <- sqrt(beta.r^2 + beta.s^2)
-  names(amp) <- gsub("rrr", "amp", names(amp))
+  groups.r <- c(beta.r["rrr"], beta.r["rrr"] + beta.r[which(names(beta.r) != "rrr")])
+  groups.s <- c(beta.s["sss"], beta.s["sss"] + beta.s[which(names(beta.s) != "sss")])
 
-  acr <- atan(beta.s / beta.r)
-  names(acr) <-  gsub("sss", "acr", names(acr))
+  amp <- sqrt(groups.r^2 + groups.s^2)
+  names(amp) <- gsub("rrr", "amp", names(beta.r))
 
+  acr <- atan(groups.s / groups.r)
+  names(acr) <-  gsub("sss", "acr", names(beta.s))
   coef <- c(mf$coefficients[mu.coef], amp, acr)
 
   structure(list(fit = fit, Call = match.call(), Terms = Terms, coefficients = coef, period = period), class = "cosinor.lm")
@@ -83,8 +89,12 @@ print.cosinor.lm <- function(x, ...){
 
   cat("Call: \n")
   print(x$Call)
-  cat("\n Coefficients: \n")
-  print(x$coefficients)
+  cat("\n Raw Coefficients: \n")
+  print(x$fit$coefficients)
+  cat("\n Transformed Coefficients: \n")
+  t.x <- x$coefficients
+  names(t.x) <- update_covnames(names(t.x))
+  print(t.x)
 
 }
 
@@ -138,4 +148,20 @@ get_varnames <- function(Terms){
 
 }
 
+#' Replace covariate names with descriptive text
+#'
+#' @param names
+#'
+#' @keywords Internal
+#'
 
+update_covnames <- function(names){
+
+  covnames <- grep("(amp|acr|Intercept)", names, invert = TRUE, value = TRUE)
+
+  lack <- names
+  for(n in covnames){
+  lack <- gsub(n, paste0("[", n, " = 1]"), lack)
+  }
+  lack
+}

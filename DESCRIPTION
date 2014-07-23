@@ -1,7 +1,7 @@
 Package: cosinor
 Type: Package
 Title: Tools for estimating and predicting the cosinor model
-Version: 0.1
+Version: 0.2
 Author: Michael Sachs <sachsmc@gmail.com>
 Maintainer: Michael Sachs <sachsmc@gmail.com>
 Description: cosinor is a set of simple functions that
