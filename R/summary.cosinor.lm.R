@@ -44,8 +44,21 @@ summary.cosinor.lm <- function(object, ...) {
   ## delta method to get variance
 
   vmat <- vcov(mf)[c(which(r.coef), which(s.coef)), c(which(r.coef), which(s.coef))]
-  a_r <- (groups.r^2 + groups.s^2)^(-0.5) * 2 * groups.r
-  a_s <- (groups.r^2 + groups.s^2)^(-0.5) * 2 * groups.s
+
+  ## transform to get group coefficients
+
+  index.s <- matrix(0, nrow = length(groups.r), ncol = length(groups.r))
+  index.r <- matrix(0, nrow = length(groups.s), ncol = length(groups.s))
+
+  index.r[,1] <- index.s[,1] <- 1
+  diag(index.r) <- diag(index.s) <- 1
+  indexmat <- rbind(cbind(index.r, index.s*0),
+                    cbind(index.r*0, index.s))
+
+  indVmat <- indexmat %*% vmat %*% t(indexmat)
+
+  a_r <- (groups.r^2 + groups.s^2)^(-0.5) * groups.r
+  a_s <- (groups.r^2 + groups.s^2)^(-0.5) * groups.s
 
   b_r <- (1 / (1 + (groups.s^2 / groups.r^2))) * (-groups.s / groups.r^2)
   b_s <- (1 / (1 + (groups.s^2 / groups.r^2))) * (1 / groups.r)
@@ -53,7 +66,7 @@ summary.cosinor.lm <- function(object, ...) {
   jac <- rbind(cbind(diag(a_r), diag(a_s)),
                cbind(diag(b_r), diag(b_s)))
 
-  cov.trans <- jac %*% vmat %*% t(jac)
+  cov.trans <- jac %*% indVmat %*% t(jac)
   se.trans <- sqrt(diag(cov.trans))
 
   ## assemble summary matrix

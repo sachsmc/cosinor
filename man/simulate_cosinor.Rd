@@ -20,5 +20,4 @@ where the time scale is month, and optionally
 allows for single covariate effects on the mean,
 amplitude, and acrophase.
 }
-\keyword{internal}
 

@@ -26,21 +26,21 @@ model.
 
     ## Raw model coefficients:
     ##             estimate standard.error lower.CI upper.CI p.value
-    ## (Intercept)  30.0014         0.0026  29.9963   30.006  0.0000
-    ## X             2.0033         0.0026   1.9981    2.009  0.0000
-    ## rrr           1.0057         0.0036   0.9986    1.013  0.0000
-    ## sss           5.9966         0.0037   5.9893    6.004  0.0000
-    ## X:rrr         0.9979         0.0037   0.9906    1.005  0.0000
-    ## X:sss        -0.0024         0.0038  -0.0097    0.005  0.5266
+    ## (Intercept)  29.9956         0.0080  29.9799  30.0113  0.0000
+    ## X             1.9947         0.0138   1.9677   2.0218  0.0000
+    ## rrr           0.9792         0.0109   0.9578   1.0006  0.0000
+    ## sss           6.0030         0.0117   5.9801   6.0259  0.0000
+    ## X:rrr         5.0180         0.0196   4.9797   5.0563  0.0000
+    ## X:sss        -0.0110         0.0195  -0.0493   0.0273  0.5733
     ## ***********************
     ## Transformed coefficients:
     ##             estimate standard.error lower.CI upper.CI p.value
-    ## (Intercept)   30.001         0.0026   29.996   30.006       0
-    ## [X = 1]        2.003         0.0026    1.998    2.009       0
-    ## amp            6.080         0.0074    6.066    6.095       0
-    ## [X = 1]:amp    6.320         0.0075    6.306    6.335       0
-    ## acr            1.405         0.0006    1.403    1.406       0
-    ## [X = 1]:acr    1.248         0.0006    1.247    1.249       0
+    ## (Intercept)   29.996         0.0080  29.9799  30.0113       0
+    ## [X = 1]        1.995         0.0138   1.9677   2.0218       0
+    ## amp            6.082         0.0117   6.0594   6.1052       0
+    ## [X = 1]:amp    8.478         0.0155   8.4472   8.5080       0
+    ## acr            1.409         0.0018   1.4056   1.4126       0
+    ## [X = 1]:acr    0.785         0.0019   0.7812   0.7887       0
 
 This prints the raw coefficients, and the transformed coefficients. The
 transformed coefficients display the amplitude and acrophase for the
@@ -55,25 +55,25 @@ when you have multiple covariates in the model.
 
     ## Raw model coefficients:
     ##             estimate standard.error lower.CI upper.CI p.value
-    ## (Intercept)  30.0014         0.0026  29.9963   30.006  0.0000
-    ## X             2.0033         0.0026   1.9981    2.009  0.0000
-    ## rrr           1.0057         0.0036   0.9986    1.013  0.0000
-    ## sss           5.9966         0.0037   5.9893    6.004  0.0000
-    ## X:rrr         0.9979         0.0037   0.9906    1.005  0.0000
-    ## X:sss        -0.0024         0.0038  -0.0097    0.005  0.5266
+    ## (Intercept)  29.9956         0.0080  29.9799  30.0113  0.0000
+    ## X             1.9947         0.0138   1.9677   2.0218  0.0000
+    ## rrr           0.9792         0.0109   0.9578   1.0006  0.0000
+    ## sss           6.0030         0.0117   5.9801   6.0259  0.0000
+    ## X:rrr         5.0180         0.0196   4.9797   5.0563  0.0000
+    ## X:sss        -0.0110         0.0195  -0.0493   0.0273  0.5733
     ## ***********************
     ## Transformed coefficients:
     ##             estimate standard.error lower.CI upper.CI p.value
-    ## (Intercept)   30.001         0.0026   29.996   30.006       0
-    ## [X = 1]        2.003         0.0026    1.998    2.009       0
-    ## amp            6.080         0.0074    6.066    6.095       0
-    ## [X = 1]:amp    6.320         0.0075    6.306    6.335       0
-    ## acr            1.405         0.0006    1.403    1.406       0
-    ## [X = 1]:acr    1.248         0.0006    1.247    1.249       0
+    ## (Intercept)   29.996         0.0080  29.9799  30.0113       0
+    ## [X = 1]        1.995         0.0138   1.9677   2.0218       0
+    ## amp            6.082         0.0117   6.0594   6.1052       0
+    ## [X = 1]:amp    8.478         0.0155   8.4472   8.5080       0
+    ## acr            1.409         0.0018   1.4056   1.4126       0
+    ## [X = 1]:acr    0.785         0.0019   0.7812   0.7887       0
 
     ## Global test: 
     ## Statistic: 
-    ## [1] 511.7
+    ## [1] 15210
     ## 
     ## 
     ##  P-value: 
@@ -81,13 +81,13 @@ when you have multiple covariates in the model.
     ## 
     ##  Individual tests: 
     ## Statistic: 
-    ## [1] 22.62
+    ## [1] 123.3
     ## 
     ## 
     ##  P-value: 
     ## [1] 0
     ## 
-    ##  Estimate and confidence interval[1] "0.24 (0.22 to 0.26)"
+    ##  Estimate and confidence interval[1] "2.4 (2.36 to 2.43)"
 
 The predict function allows you to estimate the mean value of your
 outcome for individuals. This is useful for adjusting for the seasonal
@@ -97,9 +97,9 @@ seasonally adjusted values of the vitamin D dataset.
     summary(vitamind$Y)
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    18.8    26.0    29.9    30.0    33.8    42.4
+    ##    23.5    25.4    29.6    30.4    34.8    40.7
 
     summary(predict(fit))
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    29.7    29.9    30.0    30.0    30.1    30.4
+    ##    29.7    29.9    30.0    30.0    30.1    30.2
