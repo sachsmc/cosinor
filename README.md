@@ -103,3 +103,12 @@ seasonally adjusted values of the vitamin D dataset.
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     ##    29.7    29.9    30.0    30.0    30.1    30.2
+
+Plotting the fitted curves is also easy to do. Currently only `ggplot2`
+is supported.
+
+    library(ggplot2)
+    ggplot.cosinor.lm(fit, x_str = "X")
+
+![plot of chunk
+unnamed-chunk-7](./README_files/figure-markdown_strict/unnamed-chunk-7.png)

@@ -44,3 +44,10 @@ summary(vitamind$Y)
 summary(predict(fit))
 ```
 
+Plotting the fitted curves is also easy to do. Currently only `ggplot2` is supported.
+
+```{r}
+library(ggplot2)
+ggplot.cosinor.lm(fit, x_str = "X")
+```
+

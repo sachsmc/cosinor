@@ -42,7 +42,7 @@ cosinor.lm <- function(formula, period = 12,
 
   spec_dex <- unlist(attr(Terms, "special")$amp.acro) - 1
   mainpart <- c(varnames[c(-spec_dex, - (attr(Terms, "special")$time - 1))], "rrr", "sss")
-  acpart <- paste(varnames[spec_dex], rep(c("rrr", "sss"), length(spec_dex)), sep = ":")
+  acpart <- paste(sort(rep(varnames[spec_dex], 2)), rep(c("rrr", "sss"), length(spec_dex)), sep = ":")
   newformula <- as.formula(paste(rownames(attr(Terms, "factors"))[1],
                            paste(c(mainpart, acpart), collapse = " + "), sep = " ~ "))
 
@@ -161,7 +161,8 @@ update_covnames <- function(names){
 
   lack <- names
   for(n in covnames){
-  lack <- gsub(n, paste0("[", n, " = 1]"), lack)
+  lack <- gsub(paste0(n, ":"), paste0("[", n, " = 1]:"), lack)
+  lack <- gsub(paste0("^", n, "$"), paste0("[", n, " = 1]"), lack)
   }
   lack
 }

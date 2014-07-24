@@ -8,7 +8,7 @@ test_cosinor(object, x_str, param = "amp")
 \arguments{
 \item{object}{An object of class \code{cosinor.lm}}
 
-\item{x_str}{Character naming the covariate whose amplitude will be tested}
+\item{x_str}{Character naming the covariate whose amplitude/acrophase will be tested}
 
 \item{param}{Character string naming the parameter to test, either "amp" for
   amplitude or "acr" for acrophase}

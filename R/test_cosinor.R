@@ -8,7 +8,7 @@
 #'
 #'
 #' @param object An object of class \code{cosinor.lm}
-#' @param x_str Character naming the covariate whose amplitude will be tested
+#' @param x_str Character naming the covariate whose amplitude/acrophase will be tested
 #' @param param Character string naming the parameter to test, either "amp" for
 #'   amplitude or "acr" for acrophase
 #'
