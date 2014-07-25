@@ -1,0 +1,58 @@
+---
+title: "Cosinor linear model for periodic data"
+output:
+  html_document
+---
+
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Usage}
+-->
+
+
+This is an R package for estimation and prediction of the cosinor model for periodic data. It allows for covariate effects and provides tools for inference on the mean shift, amplitude, and acrophase. To install from github, you must first have the `devtools` package installed. Then run this command to install the latest version:
+
+```{r eval = FALSE}
+devtools::install_github("cosinor", "sachsmc")
+```
+
+Load the package into your library:
+
+```{r}
+library(cosinor)
+```
+
+The package comes with an example dataset called `vitamind` to illustrate the usage. Fit a basic cosinor model with covariates:
+
+```{r}
+fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind, period = 12)
+```
+
+The time variable is indicated by the `time` function in the formula. By default, the period length is 12. Covariates can be included directly in the formula to allow for mean shifts. To allow for differences in amplitude and acrophase by covariate values, include the covariate wrapped in the `amp.acro` function in the formula. Let's summarize the model.
+
+```{r}
+summary(fit)
+```
+
+This prints the raw coefficients, and the transformed coefficients. The transformed coefficients display the amplitude and acrophase for the covariate = 1 group and the covariate = 0 group. Beware when using continuous covariates!
+
+Testing is easy to do, tell the function which covariate to test, and whether to test the amplitude or acrophase. The global test is useful when you have multiple covariates in the model.
+
+```{r}
+test_cosinor(fit, "X", param = "amp")
+```
+
+The predict function allows you to estimate the mean value of your outcome for individuals. This is useful for adjusting for the seasonal effects on some measurement. Let's compare the raw values to the seasonally adjusted values of the vitamin D dataset.
+
+```{r}
+summary(vitamind$Y)
+summary(predict(fit))
+```
+
+Plotting the fitted curves is also easy to do. Currently only `ggplot2` is supported.
+
+```{r}
+library(ggplot2)
+ggplot.cosinor.lm(fit, x_str = "X")
+```
+

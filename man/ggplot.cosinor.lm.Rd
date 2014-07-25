@@ -16,6 +16,6 @@ Optionally allows for plotting by covariate levels 0 and 1.
 }
 \examples{
 fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
-ggplot(fit, "X")
+ggplot.cosinor.lm(fit, "X")
 }
 

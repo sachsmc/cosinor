@@ -150,7 +150,7 @@ get_varnames <- function(Terms){
 
 #' Replace covariate names with descriptive text
 #'
-#' @param names
+#' @param names Coefficient names to update
 #'
 #' @keywords Internal
 #'

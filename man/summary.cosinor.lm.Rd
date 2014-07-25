@@ -8,7 +8,7 @@
 \arguments{
 \item{object}{An object of class \code{cosinor.lm}}
 
-\item{...}{}
+\item{...}{Currently unusued}
 }
 \description{
 Given a time variable and optional covariates, generate inference a cosinor

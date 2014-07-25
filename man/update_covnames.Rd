@@ -6,7 +6,7 @@
 update_covnames(names)
 }
 \arguments{
-\item{names}{}
+\item{names}{Coefficient names to update}
 }
 \description{
 Replace covariate names with descriptive text

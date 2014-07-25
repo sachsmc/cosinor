@@ -55,20 +55,21 @@ test_cosinor <- function(object, x_str, param = "amp"){
 
 }
 
-#' Print test of cosinor model
+#' Print results of test of cosinor model
 #'
 #' @param x test_cosinor object
+#' @param ... Arguments passed to \code{print}
 #'
 #'
 #' @export
 #'
 
-print.test_cosinor <- function(x){
+print.test_cosinor <- function(x, ...){
 
   cat("Global test: \n")
-  print(x$global.test)
+  print(x$global.test, ...)
   cat("\n Individual tests: \n")
-  print(x$ind.test)
+  print(x$ind.test, ...)
 
 }
 

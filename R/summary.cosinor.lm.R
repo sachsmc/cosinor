@@ -9,7 +9,7 @@
 #'
 #'
 #' @param object An object of class \code{cosinor.lm}
-#' @param ...
+#' @param ... Currently unusued
 #'
 #'
 #' @examples

@@ -1,3 +1,6 @@
+#' @import ggplot2
+NULL
+
 #' Plot a cosinor model
 #'
 #' Given a cosinor.lm model fit, generate a plot of the data with the fitted values.
@@ -11,14 +14,13 @@
 #' @examples
 #'
 #' fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
-#' ggplot(fit, "X")
+#' ggplot.cosinor.lm(fit, "X")
 #'
 #' @export
 #'
 #'
 ggplot.cosinor.lm <- function(object, x_str = NULL){
 
-  require(ggplot2)
   timeax <- seq(0, object$period, length.out = 200)
   covars <- grep("(rrr|sss)", attr(object$fit$terms, "term.labels"), invert = TRUE, value = TRUE)
 
