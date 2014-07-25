@@ -50,7 +50,8 @@ ggplot.cosinor.lm <- function(object, x_str = NULL){
 
 
   newdata$Y.hat <- predict(object$fit, newdata = newdata)
-  ggplot(newdata, aes(x = time, y = Y.hat, col = levels)) + geom_line()
+
+  ggplot(newdata, aes_string(x = "time", y = "Y.hat", col = "levels")) + geom_line()
 
 
 }
