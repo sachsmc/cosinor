@@ -1,3 +1,7 @@
+# cosinor 1.1
+
+* Fixed bug where plot with no covariates failed.
+
 # cosinor 1.0
 
 * First release

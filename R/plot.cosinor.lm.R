@@ -51,7 +51,13 @@ ggplot.cosinor.lm <- function(object, x_str = NULL){
 
   newdata$Y.hat <- predict(object$fit, newdata = newdata)
 
+  if(missing(x_str) || is.null(x_str)){
+
+    ggplot(newdata, aes_string(x = "time", y = "Y.hat")) + geom_line()
+
+  } else {
+
   ggplot(newdata, aes_string(x = "time", y = "Y.hat", col = "levels")) + geom_line()
 
-
+  }
 }
