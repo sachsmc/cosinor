@@ -11,5 +11,4 @@ update_covnames(names)
 \description{
 Replace covariate names with descriptive text
 }
-\keyword{Internal}
 

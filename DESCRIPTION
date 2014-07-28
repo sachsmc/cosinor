@@ -4,16 +4,19 @@ Title: Tools for estimating and predicting the cosinor model
 Version: 1.1
 Author: Michael Sachs <sachsmc@gmail.com>
 Maintainer: Michael Sachs <sachsmc@gmail.com>
-Description: cosinor is a set of simple functions that
-    transforms longitudinal data to estimate the cosinor
-    linear model. Methods are given to summarize the mean,
-    amplitude and acrophase, to predict the mean annual
-    outcome value, and to test the coefficients.
+Description: cosinor is a set of simple functions that transforms longitudinal
+    data to estimate the cosinor linear model as described in Tong (1976).
+    Methods are given to summarize the mean, amplitude and acrophase, to
+    predict the mean annual outcome value, and to test the coefficients.
 URL: http://github.com/sachsmc/cosinor
 Depends:
     R (>= 2.11.0)
 Imports:
-    ggplot2
+    ggplot2,
+    shiny
+Suggests:
+    knitr
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(wrap = FALSE)
+VignetteBuilder: knitr

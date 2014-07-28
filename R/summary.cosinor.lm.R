@@ -63,8 +63,16 @@ summary.cosinor.lm <- function(object, ...) {
   b_r <- (1 / (1 + (groups.s^2 / groups.r^2))) * (-groups.s / groups.r^2)
   b_s <- (1 / (1 + (groups.s^2 / groups.r^2))) * (1 / groups.r)
 
+  if(length(groups.r) == 1){
+
+    jac <- matrix(c(a_r, a_s, b_r, b_s), byrow = TRUE, nrow = 2)
+
+  } else {
+
   jac <- rbind(cbind(diag(a_r), diag(a_s)),
                cbind(diag(b_r), diag(b_s)))
+
+  }
 
   cov.trans <- jac %*% indVmat %*% t(jac)
   se.trans <- sqrt(diag(cov.trans))
@@ -81,17 +89,38 @@ summary.cosinor.lm <- function(object, ...) {
                   lower.CI = mf$coefficients - zt * raw.se, upper.CI = mf$coefficients + zt * raw.se,
                   p.value = 2 * pnorm(-abs(mf$coefficients/raw.se)))
 
-  cat("Raw model coefficients:\n")
-  print(round(rawmat, 4))
-  cat("***********************\n")
-  smat <- cbind(estimate = coef, standard.error = se, lower.CI = coef - zt * se, upper.CI = coef + zt * se, p.value = 2 * pnorm(-abs(coef/se)))
+   smat <- cbind(estimate = coef, standard.error = se, lower.CI = coef - zt * se, upper.CI = coef + zt * se, p.value = 2 * pnorm(-abs(coef/se)))
 
   rownames(smat) <- update_covnames(rownames(smat))
-  cat("Transformed coefficients:\n")
-  print(round(smat, 4))
 
 
-  invisible(list(tranformed.table = as.data.frame(smat), raw.table = as.data.frame(rawmat), transformed.covariance = cov.trans))
+  structure(list(transformed.table = as.data.frame(smat), raw.table = as.data.frame(rawmat), transformed.covariance = cov.trans), class = "summary.cosinor.lm")
 
 }
+
+#' Print the summary of a cosinor model
+#'
+#' @param x An object of class \code{summary.cosinor.lm}
+#' @param ... Currently unusued
+#'
+#'
+#' @examples
+#'
+#' fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
+#' summary(fit)
+#'
+#' @export
+#'
+
+print.summary.cosinor.lm <- function(x, ...){
+
+  cat("Raw model coefficients:\n")
+  print(round(x$raw.table, 4))
+  cat("\n***********************\n\n")
+  cat("Transformed coefficients:\n")
+  print(round(x$transformed.table, 4))
+
+
+}
+
 

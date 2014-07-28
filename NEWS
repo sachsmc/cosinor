@@ -1,6 +1,9 @@
 # cosinor 1.1
 
+* Added shiny app function
 * Fixed bug where plot with no covariates failed.
+* Fixed bug to allow as.factor inside specials of formula.
+* Added references.
 
 # cosinor 1.0
 

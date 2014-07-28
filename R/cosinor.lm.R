@@ -21,6 +21,9 @@
 #'
 #' cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 #'
+#' @references Tong, YL. Parameter Estimation in Studying Circadian Rhythms, Biometrics (1976). 32(1):85--94.
+#'
+#'
 #' @export
 #'
 
@@ -143,8 +146,19 @@ get_varnames <- function(Terms){
 
   }))
 
-  tname[dex] <- sapply(strsplit(tname[dex], "[()]"), function(x) x[2])
-  tname
+  tname2 <- tname
+  for(jj in spec){
+
+    gbl <- grep(paste0(jj, "("), tname2, fixed = TRUE)
+    init <- length(gbl) > 0
+    if( init ){
+    jlack <- gsub(paste0(jj, "("), "", tname2, fixed = TRUE)
+    tname2[gbl] <- substr(jlack[gbl], 1, nchar(jlack[gbl]) - 1)
+    }
+
+    }
+
+   tname2
 
 }
 
@@ -152,7 +166,7 @@ get_varnames <- function(Terms){
 #'
 #' @param names Coefficient names to update
 #'
-#' @keywords Internal
+#' @export
 #'
 
 update_covnames <- function(names){
