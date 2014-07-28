@@ -31,4 +31,7 @@ This defines special functions that are used in the formula to
 \examples{
 cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 }
+\references{
+Tong, YL. Parameter Estimation in Studying Circadian Rhythms, Biometrics (1976). 32(1):85--94.
+}
 
