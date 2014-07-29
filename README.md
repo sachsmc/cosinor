@@ -1,7 +1,14 @@
 This is an R package for estimation and prediction of the cosinor model
 for periodic data. It allows for covariate effects and provides tools
-for inference on the mean shift, amplitude, and acrophase. To install
-from github, you must first have the `devtools` package installed. Then
+for inference on the mean shift, amplitude, and acrophase. Check out the shiny app that illustrates the model here
+
+http://sachsmc.shinyapps.io/cosinor-shinyapp/
+
+The package is on CRAN and can be installed as follows
+
+    install.packages("cosinor")
+
+To install from github, you must first have the `devtools` package installed. Then
 run this command to install the latest version:
 
     devtools::install_github("cosinor", "sachsmc")
