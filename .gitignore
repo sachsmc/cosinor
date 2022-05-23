@@ -1,6 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
-.Rproj
-.Rbuildignore
-cosinor.Rproj
+.Ruserdata
+^revdep$
