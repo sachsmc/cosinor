@@ -16,6 +16,7 @@ NULL
 #' fit <- cosinor.lm(Y ~ time(time) + X + amp.acro(X), data = vitamind)
 #' ggplot.cosinor.lm(fit, "X")
 #'
+#' @export ggplot.cosinor.lm
 #' @export
 #'
 #'

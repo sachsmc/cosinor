@@ -1,3 +1,7 @@
+#' @importFrom stats as.formula fitted lm na.omit pchisq pnorm predict qnorm rbinom rnorm runif terms vcov
+#'
+NULL
+
 #' Fit cosinor model
 #'
 #' Given an outcome and time variable, fit the cosinor model with optional

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Michael C Sachs" />
+
+<meta name="date" content="2022-05-23" />
+
+<title>Introduction and usage of the cosinor package</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction and usage of the cosinor package</h1>
+<h4 class="author">Michael C Sachs</h4>
+<h4 class="date">2022-05-23</h4>
+
+
+
+<p>This is an R package for estimation and prediction of the cosinor model for periodic data. It allows for covariate effects and provides tools for inference on the mean shift, amplitude, and acrophase.</p>
+<p>The package can be installed from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;cosinor&quot;</span>)</span></code></pre></div>
+<p>To install from github, you must first have the <code>devtools</code> package installed. Then run this command to install the latest version:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;cosinor&quot;</span>, <span class="st">&quot;sachsmc&quot;</span>)</span></code></pre></div>
+<p>Load the package into your library:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cosinor)</span></code></pre></div>
+<p>The package comes with an example dataset called <code>vitamind</code> to illustrate the usage. Fit a basic cosinor model with covariates:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">cosinor.lm</span>(Y <span class="sc">~</span> <span class="fu">time</span>(time) <span class="sc">+</span> X <span class="sc">+</span> <span class="fu">amp.acro</span>(X), <span class="at">data =</span> vitamind, <span class="at">period =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p>The time variable is indicated by the <code>time</code> function in the formula. By default, the period length is 12. Covariates can be included directly in the formula to allow for mean shifts. To allow for differences in amplitude and acrophase by covariate values, include the covariate wrapped in the <code>amp.acro</code> function in the formula. Let’s summarize the model.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## Raw model coefficients:
+##             estimate standard.error lower.CI upper.CI p.value
+## (Intercept)  29.6898         0.4654  28.7776  30.6020  0.0000
+## X             1.9019         0.8041   0.3258   3.4779  0.0180
+## rrr           0.9308         0.6357  -0.3151   2.1767  0.1431
+## sss           6.2010         0.6805   4.8673   7.5347  0.0000
+## X:rrr         5.5795         1.1386   3.3479   7.8111  0.0000
+## X:sss        -1.3825         1.1364  -3.6097   0.8447  0.2237
+## 
+## ***********************
+## 
+## Transformed coefficients:
+##             estimate standard.error lower.CI upper.CI p.value
+## (Intercept)  29.6898         0.4654  28.7776  30.6020   0.000
+## [X = 1]       1.9019         0.8041   0.3258   3.4779   0.018
+## amp           6.2705         0.6799   4.9378   7.6031   0.000
+## [X = 1]:amp   8.0995         0.9095   6.3170   9.8820   0.000
+## acr           1.4218         0.1015   1.2229   1.6207   0.000
+## [X = 1]:acr   0.6372         0.1167   0.4084   0.8659   0.000</code></pre>
+<p>This prints the raw coefficients, and the transformed coefficients. The transformed coefficients display the amplitude and acrophase for the covariate = 1 group and the covariate = 0 group. Beware when using continuous covariates!</p>
+<p>Testing is easy to do, tell the function which covariate to test, and whether to test the amplitude or acrophase. The global test is useful when you have multiple covariates in the model.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_cosinor</span>(fit, <span class="st">&quot;X&quot;</span>, <span class="at">param =</span> <span class="st">&quot;amp&quot;</span>)</span></code></pre></div>
+<pre><code>## Global test: 
+## Statistic: 
+## [1] 2.59
+## 
+## 
+##  P-value: 
+## [1] 0.1072
+## 
+##  Individual tests: 
+## Statistic: 
+## [1] 1.61
+## 
+## 
+##  P-value: 
+## [1] 0.1072
+## 
+##  Estimate and confidence interval[1] &quot;1.83 (-0.4 to 4.05)&quot;</code></pre>
+<p>The predict function allows you to estimate the mean value of your outcome for individuals. This is useful for adjusting for the seasonal effects on some measurement. Let’s compare the raw values to the seasonally adjusted values of the vitamin D dataset.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vitamind<span class="sc">$</span>Y)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   13.27   25.59   29.79   30.09   34.85   51.30</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">predict</span>(fit))</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   16.10   25.98   29.26   29.69   33.59   46.48</code></pre>
+<p>Plotting the fitted curves is also easy to do. Currently only <code>ggplot2</code> is supported.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot.cosinor.lm</span>(fit, <span class="at">x_str =</span> <span class="st">&quot;X&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The package comes with an interactive web app that can be used to analyze your own data. If you have your data loaded in R as a <code>data.frame</code>, run the command</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cosinor_analyzer</span>(vitamind)</span></code></pre></div>
+<p>to run the Shiny application.</p>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

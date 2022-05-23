@@ -17,7 +17,11 @@ NULL
 #' @export
 #'
 #'
-cosinor_analyzer <- function(data = vitamind){
+cosinor_analyzer <- function(data = NULL){
+
+  if(is.null(data)) {
+    data <- cosinor::vitamind
+  }
 
   shinyApp(
 

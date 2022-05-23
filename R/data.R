@@ -7,4 +7,5 @@
 #'
 #' @format A data frame with 3 variables: \code{X}, \code{Y},
 #'   \code{time}.
+
 "vitamind"

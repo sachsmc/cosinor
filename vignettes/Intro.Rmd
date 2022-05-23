@@ -1,9 +1,16 @@
-
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{Usage}
--->
-
+---
+title: "Introduction and usage of the cosinor package"
+author: "Michael C Sachs"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+      fig_width: 5
+      fig_height: 5
+vignette: >
+    %\VignetteIndexEntry{Usage}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
 
 This is an R package for estimation and prediction of the cosinor model for periodic data. It allows for covariate effects and provides tools for inference on the mean shift, amplitude, and acrophase. 
 

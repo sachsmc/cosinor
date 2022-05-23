@@ -1,14 +1,15 @@
 Package: cosinor
 Type: Package
-Title: Tools for estimating and predicting the cosinor model
-Version: 1.1
+Title: Tools for Estimating and Predicting the Cosinor Model
+Version: 1.2.1
+Date: 2022-05-23
 Author: Michael Sachs <sachsmc@gmail.com>
 Maintainer: Michael Sachs <sachsmc@gmail.com>
-Description: cosinor is a set of simple functions that transforms longitudinal
+Description: A set of simple functions that transforms longitudinal
     data to estimate the cosinor linear model as described in Tong (1976).
     Methods are given to summarize the mean, amplitude and acrophase, to
     predict the mean annual outcome value, and to test the coefficients.
-URL: http://github.com/sachsmc/cosinor
+URL: https://github.com/sachsmc/cosinor
 Depends:
     R (>= 2.11.0)
 Imports:
@@ -18,5 +19,5 @@ Suggests:
     knitr
 License: MIT + file LICENSE
 LazyData: true
-Roxygen: list(wrap = FALSE)
 VignetteBuilder: knitr
+RoxygenNote: 7.1.1
