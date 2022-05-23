@@ -44,8 +44,8 @@ cosinor.lm <- function(formula, period = 12,
   varnames <- get_varnames(Terms)
   timevar <- varnames[attr(Terms, "specials")$time - 1]
 
-  data$rrr <- cos(2 * pi * data[,timevar] / period)
-  data$sss <- sin(2 * pi * data[,timevar] / period)
+  data$rrr <- cos(2 * pi * data[[timevar]] / period)
+  data$sss <- sin(2 * pi * data[[timevar]] / period)
 
   spec_dex <- unlist(attr(Terms, "special")$amp.acro) - 1
   mainpart <- c(varnames[c(-spec_dex, - (attr(Terms, "special")$time - 1))], "rrr", "sss")
