@@ -1,7 +1,7 @@
 ---
 title: "Cosinor"
 author: "Michael Sachs"
-date: "July 23, 2014"
+date: "`r Sys.Date()`"
 output: 
     md_document:
         variant: markdown_github+tex_math_dollars
