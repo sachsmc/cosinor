@@ -19,7 +19,7 @@ Given an outcome and time variable, fit the cosinor model with optional covariat
 This defines special functions that are used in the formula to indicate the time variable
 and which covariates effect the amplitude. To indicate the time variable wrap the name of it in the function
 \code{time()}. To indicate a variable which affects the acrophase/amplitude, wrap the name in
-\code{amp.acro()}. This will then do all the tranformations for you. See examples for usage.
+\code{amp.acro()}. This will then do all the transformations for you. See examples for usage.
 }
 \examples{
 

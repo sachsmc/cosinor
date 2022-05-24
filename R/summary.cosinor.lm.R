@@ -9,7 +9,7 @@
 #'
 #'
 #' @param object An object of class \code{cosinor.lm}
-#' @param ... Currently unusued
+#' @param ... Currently unused
 #'
 #'
 #' @examples
@@ -101,7 +101,7 @@ summary.cosinor.lm <- function(object, ...) {
 #' Print the summary of a cosinor model
 #'
 #' @param x An object of class \code{summary.cosinor.lm}
-#' @param ... Currently unusued
+#' @param ... Currently unused
 #'
 #'
 #' @examples

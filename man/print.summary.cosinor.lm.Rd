@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{An object of class \code{summary.cosinor.lm}}
 
-\item{...}{Currently unusued}
+\item{...}{Currently unused}
 }
 \description{
 Print the summary of a cosinor model

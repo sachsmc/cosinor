@@ -7,7 +7,7 @@
 cosinor.lm(formula, period = 12, data, na.action = na.omit)
 }
 \arguments{
-\item{formula}{Forumla specifying the model. Indicate the time variable with
+\item{formula}{Formula specifying the model. Indicate the time variable with
 \code{time()} and covariate effects on the amplitude and acrophase with
 \code{amp.acro()}. See details for more information.}
 
@@ -27,7 +27,7 @@ This defines special functions that are used in the formula to
   indicate the time variable wrap the name of it in the function
   \code{time()}. To indicate a variable which affects the
   acrophase/amplitude, wrap the name in \code{amp.acro()}. This will then do
-  all the tranformations for you. See examples for usage.
+  all the transformations for you. See examples for usage.
 }
 \examples{
 
